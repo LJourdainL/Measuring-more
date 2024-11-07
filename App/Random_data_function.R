@@ -243,5 +243,103 @@ simule_graph_multi <- function(Data,
 
 }
 
+##############################################################################"
 
+Tool_graph <- function(Data,
+                       text_size = 18
+                       ){
+
+  require(tidyverse)
+  require(reshape2)
+  require(dplyr)
+
+  Data$N_tree %>% unique() -> Ntree_values
+  Data$rbt %>% quantile(probs = seq(0, 1, 0.2)) %>% round(digits = 2) -> borns
+
+
+  RbarTot_ranges <- list()
+
+  for (i in 1:(length(borns) - 1)) {
+
+    range_name <- paste0(borns[i], "-", borns[i + 1])
+    RbarTot_ranges[[range_name]] <- c(borns[i], borns[i + 1])
+  }
+
+  filter_data <- function(data, Ntree_value, RbarTot_min, RbarTot_max) {
+    data %>%
+      subset(N_tree == Ntree_value) %>%
+      subset(rbt >= RbarTot_min & rbt < RbarTot_max)
+  }
+
+  # Initialize an empty list to store results
+  filtered_data <- list()
+
+  # Loop through Ntree values and RbarTot ranges to filter data
+  for (Ntree_value in Ntree_values) {
+    for (range_name in names(RbarTot_ranges)) {
+      RbarTot_min <- RbarTot_ranges[[range_name]][1]
+      RbarTot_max <- RbarTot_ranges[[range_name]][2]
+
+      # Filter the data
+      filtered_data[[paste(Ntree_value, range_name, sep = "_")]] <-
+        filter_data(Data, Ntree_value, RbarTot_min, RbarTot_max)
+    }
+  }
+
+  # Create the final table dynamically based on Ntree_values and RbarTot_ranges
+  table_tool <- data.frame(
+    Trees = Ntree_values
+  )
+
+  # Add columns to the table for each RbarTot range
+  for (range_name in names(RbarTot_ranges)) {
+    table_tool[[paste(range_name, sep = "")]] <- sapply(Ntree_values, function(N) {
+      data <- filtered_data[[paste(N, range_name, sep = "_")]]
+      quantile(data$Cor, 0.975) - quantile(data$Cor, 0.025)
+    })
+  }
+
+  # Display the table
+  table_tool
+
+  data_long <- melt(table_tool, id.vars = "Trees", variable.name = "RbtType", value.name = "Value")
+
+  data_long %>% mutate(Rbt = c(rep(mean(c(borns[1],borns[2])),length(Ntree_values)),
+                               rep(mean(c(borns[2],borns[3])),length(Ntree_values)),
+                               rep(mean(c(borns[3],borns[4])),length(Ntree_values)),
+                               rep(mean(c(borns[4],borns[5])),length(Ntree_values)),
+                               rep(mean(c(borns[5],borns[6])),length(Ntree_values))
+  )) %>% mutate(EPS= rbar_to_eps(Rbt,Trees)) -> data_long
+
+
+
+  data_long$Trees <- factor(data_long$Trees, levels = Ntree_values)
+
+
+
+  (graph_tool <- ggplot(data_long, aes(x = RbtType, y = Trees, fill = Value)) +
+      geom_tile(color = "white",linewidth = 2) +  # White border for clarity
+      scale_fill_stepsn(colors = c("#053061",
+                                   "#2166ac",
+                                   "#4393c3",
+                                   "#92c5de",
+                                   "#f7f7f7",
+                                   "#f4a582",
+                                   "#d6604d",
+                                   "#b2182b",
+                                   "#67001f"),
+                        breaks = seq(0,0.4,0.04),
+                        limits = c(0, 0.4) ) +
+      scale_x_discrete()+
+      labs(x = "Rbt", y = "Number of Trees", fill = "Cor spread") +  # Labels
+      geom_text(aes(label = round(EPS, 2),
+                    fontface = ifelse(EPS >= 0.85, "bold", "plain")),
+                color = "black", size = text_size/3)+
+      theme_minimal()+
+      theme(text = element_text(size = text_size),
+            axis.text = element_text(size = text_size/1.3),
+            legend.key.size = unit(1, "cm")))
+
+
+}
 

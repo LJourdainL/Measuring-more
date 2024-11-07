@@ -58,7 +58,7 @@ ui <- fluidPage(
                    ),
       mainPanel(
         tabsetPanel(
-          tabPanel("Graph", plotOutput("plot"),tableOutput("stat")) , # Add action button),
+          tabPanel("Graph", plotOutput("plot"), plotOutput("tool")) , # Add action button),
           tabPanel("Table", tableOutput("results"), )
 
         )
@@ -125,12 +125,6 @@ server <- function(input, output) {
     climate_df
   })
 
-  output$stat <- renderTable({
-    req(results())
-    name <- c("Rbt", "Cor", "Cor min")
-    value <- c(results()[[3]],results()[[4]],results()[[5]])
-    data.frame(Population_stats = name, Value = value)
-  })
 
   output$results <- renderTable({
     req(results())
@@ -141,6 +135,12 @@ server <- function(input, output) {
     req(results())
     if (input$graph) {
       results()[[2]]
+    }
+  })
+  output$tool <- renderPlot({
+    req(results())
+    if (input$graph) {
+     Tool_graph(results()[[1]])
     }
   })
 }
