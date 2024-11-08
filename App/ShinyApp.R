@@ -25,42 +25,39 @@ ui <- fluidPage(
     ),
     tabPanel(
       titlePanel("Param"),
-      sidebarPanel(width = 6,
+      sidebarPanel(
+        width = 6,
         h4("Population"),
         numericInput("pop_size", "Population Size", value = 100, min = 50, max = 500),
         numericInput("N_tree_sample", "Number of Trees to Sample", min = 2, max = 100, value = 5),
         numericInput("rep_sub_core", "Number of subsample core / tree", value = 100, min = 1),
         numericInput("rep_sub_pop", "Number of sub-population draw", value = 100, min = 1, max = 1000),
-
       ),
       mainPanel(
         width = 6,
-        h4("Stats target") ,
+        h4("Stats target"),
         numericInput("target_cor", "Target Climate Correlation (r)", value = 0.5, min = -1, max = 1),
         numericInput("target_rbt", "Target common signal (Rbt)", value = 0.4, min = 0, max = 1),
         numericInput("noise_min", "Noise min", min = 0, max = 1, value = 0.1),
         numericInput("noise_max", "Noise max", min = 0.5, max = 5, value = 1),
-        numericInput("p_value", "P-value",  min = 0, max = 1, value = 0.01)
-
-
+        numericInput("p_value", "P-value", min = 0, max = 1, value = 0.01)
       ),
     ),
     tabPanel(
       titlePanel("Simul"),
-      sidebarPanel(h4("Graphic param"),
-      actionButton("rerun", "Run"),
+      sidebarPanel(
+        h4("Graphic param"),
+        actionButton("rerun", "Run"),
         checkboxInput("graph", "Show Graph", value = TRUE),
         textInput("color1", "Color 1", value = "green"),
         textInput("color2", "Color 2", value = "white"),
         sliderInput("ylim", "Y-axis Limits", min = -1, max = 1, value = c(0, 0.7), step = 0.01),
         sliderInput("xlim", "X-axis Limits", min = 0, max = 1, value = c(0, 0.7), step = 0.01),
-
-                   ),
+      ),
       mainPanel(
         tabsetPanel(
-          tabPanel("Graph", plotOutput("plot"), plotOutput("tool")) , # Add action button),
+          tabPanel("Graph", plotOutput("plot"), plotOutput("tool")), # Add action button),
           tabPanel("Table", tableOutput("results"), )
-
         )
       )
     ),
@@ -69,11 +66,10 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
-  source("Random_data_function.R")
+  source("Simulation_function.R")
   climate_data <- reactive({
     req(input$climate_data)
     data <- read.table(input$climate_data$datapath, header = TRUE)
-    # Convert all columns to numeric, warning for non-numeric columns
     data <- data %>%
       mutate(across(everything(), ~ as.numeric(as.character(.))))
 
@@ -89,11 +85,11 @@ server <- function(input, output) {
   })
 
   N_tree_sample <- reactive({
-  input$N_tree_sample
+    input$N_tree_sample
   })
 
   noise <- reactive({
-   round(seq(from = input$noise_max, to = input$noise_min, length.out = 10),digits = 2)
+    round(seq(from = input$noise_max, to = input$noise_min, length.out = 10), digits = 2)
   })
 
   results <- eventReactive(input$rerun, {
@@ -140,7 +136,7 @@ server <- function(input, output) {
   output$tool <- renderPlot({
     req(results())
     if (input$graph) {
-     Tool_graph(results()[[1]])
+      Tool_graph(results()[[1]])
     }
   })
 }
