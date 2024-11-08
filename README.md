@@ -1,7 +1,6 @@
 # Measuring-more
 
-**Measuring more - the key to a robust signal in ring-porous QWA chronologies**; Appendix - code and ShinyApp tool This repository provides tools to generate synthetic tree-ring data based on specified climate variables, noise parameters (related to the TW gradient), population size, target Rbt, and target climate correlation. The aim is to evaluate the impact of different sampling strategies on the correlation between tree-ring indices and climate data.
-
+**Measuring more - the key to a robust signal in ring-porous QWA chronologies**; Appendix - code and ShinyApp tool. This repository provides tools to generate synthetic tree-ring data based on specified climate variables, noise parameters (related to the TW gradient), population size, target Rbt, and target climate correlation. The aim is to evaluate the impact of different sampling strategies on the correlation between tree-ring indices and climate data.
 
 ## Getting Started
 
@@ -62,5 +61,3 @@ The **Function Documentation** file contains the core functions used for the sim
 Users interested in the inner workings of the simulation or looking to modify the simulation process should refer to this file.
 
 ------------------------------------------------------------------------
-
-
