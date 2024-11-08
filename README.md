@@ -1,6 +1,16 @@
 # Measuring-more
 
-**Measuring more - the key to a robust signal in ring-porous QWA chronologies**; Appendix - code and ShinyApp tool This repository provides tools to generates synthetic tree-ring data based on specified climate variables, noise parameters (related the TW gradient), population size, target Rbt, and target climate correlation. The aim is to evaluate the impact of different sampling strategies on the correlation between tree-ring indices and climate data.
+**Measuring more - the key to a robust signal in ring-porous QWA chronologies**; Appendix - code and ShinyApp tool This repository provides tools to generate synthetic tree-ring data based on specified climate variables, noise parameters (related to the TW gradient), population size, target Rbt, and target climate correlation. The aim is to evaluate the impact of different sampling strategies on the correlation between tree-ring indices and climate data.
+
+
+## Getting Started
+
+Clone or download this repository, ensure that all necessary R packages are installed, and open the Shiny App or example document to begin.
+
+## Requirements
+
+-   **R packages**: `shiny`, `tidyverse`, `dplR`, `lattice`, `zoo`, `gridExtra`, `cowplot`, `patchwork`.
+-   **Climate Data Format**: A `.txt` file with monthly climate data. Columns represent months, and rows represent years.
 
 ## Files in This Repository
 
@@ -53,11 +63,4 @@ Users interested in the inner workings of the simulation or looking to modify th
 
 ------------------------------------------------------------------------
 
-## Requirements
 
--   **R packages**: `shiny`, `tidyverse`, `dplR`, `lattice`, `zoo`, `gridExtra`, `cowplot`, `patchwork`.
--   **Climate Data Format**: A `.txt` file with monthly climate data. Columns represent months, and rows represent years.
-
-## Getting Started
-
-Clone or download this repository, ensure that all necessary R packages are installed, and open the Shiny App or example document to begin.
