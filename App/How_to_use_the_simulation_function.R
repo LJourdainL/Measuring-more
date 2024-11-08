@@ -45,7 +45,7 @@ Output <- Climate_cor_simule(
 ## Visualizing the Output
 
 # Access and view the data, individual plots for specific sample sizes, and calculated statistical results from the simulation.
-Output$Ouput              # Data frame with correlation and Rbt values.
+Output$Output              # Data frame with correlation and Rbt values.
 Output$graph$`_5_tree`    # Plot for the 5-tree sample.
 Output$graph$`_10_tree`   # Plot for the 10-tree sample.
 Output$graph$`_20_tree`   # Plot for the 20-tree sample.
@@ -60,7 +60,7 @@ Output$signific_cor       # Correlation significance threshold.
 # Use simule_graph_uniq to customize a single plot for a specific sample size (e.g., 5 trees).
 # Allows customization of colors, text size, and axis limits.
 
-Output$Ouput %>% filter(N_tree == 5) %>%
+Output$Output %>% filter(N_tree == 5) %>%
 simule_graph_uniq(color1 = "cyan",
                   color2 = "pink",
                   text_size = 15,
@@ -77,7 +77,7 @@ simule_graph_uniq(color1 = "cyan",
 
 # Use simule_graph_multi to create customized plots for multiple sample sizes and display them in a grid layout.
 # Adjust color gradients, text size, axis limits, and layout options for each plot.
-Multi <- Output$Ouput %>% simule_graph_multi(color1 = "brown",
+Multi <- Output$Output %>% simule_graph_multi(color1 = "brown",
                                     color2 = "beige",
                                     text_size = 10,
                                     ax_text_size = 8,
@@ -93,4 +93,4 @@ Multi$`_5_tree`/ Multi$`_20_tree` | Multi$`_10_tree`/Multi$`_30_tree`
 
 ## Tool_graph
 # Use Tool_graph to generate a summary plot for the entire simulation output
-Tool_graph(Output$Ouput, text_size = 10)
+Tool_graph(Output$Output, text_size = 10)
