@@ -116,7 +116,7 @@ Climate_cor_simule <- function(climate_data,
     O[[3]] <- truth_rbt
     O[[4]] <- truth_cor
     O[[5]] <- signific_cor
-    names(O) <- c("Ouput", "graph", "truth_rbt", "truth_cor", "signific_cor")
+    names(O) <- c("Output", "graph", "truth_rbt", "truth_cor", "signific_cor")
     O
   } else {
     Oo <- list()
@@ -124,7 +124,7 @@ Climate_cor_simule <- function(climate_data,
     Oo[[2]] <- truth_rbt
     Oo[[3]] <- truth_cor
     Oo[[5]] <- signific_cor
-    names(Oo) <- c("Ouput", "truth_rbt", "truth_cor", "signific_cor")
+    names(Oo) <- c("Output", "truth_rbt", "truth_cor", "signific_cor")
     Oo
   }
 }
