@@ -61,4 +61,5 @@ The **Function Documentation** file contains the core functions used for the sim
 Users interested in the inner workings of the simulation or looking to modify the simulation process should refer to this file.
 
 ------------------------------------------------------------------------
- This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International 
+
+This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International

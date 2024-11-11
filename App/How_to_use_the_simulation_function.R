@@ -1,3 +1,5 @@
+# This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+
 ########### How to Use the Simulation Functions ################################
 
 # Load necessary libraries for data manipulation, simulations, and plotting
