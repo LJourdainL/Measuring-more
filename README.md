@@ -8,7 +8,7 @@ Clone or download this repository, ensure that all necessary R packages are inst
 
 ## Requirements
 
--   **R packages**: `shiny`, `tidyverse`, `dplR`, `lattice`, `zoo`, `gridExtra`, `cowplot`, `patchwork`.
+-   **R packages**: `shiny`, `shinythemes`, `tidyverse`, `dplR`, `lattice`, `zoo`, `gridExtra`, `cowplot`, `patchwork`.
 -   **Climate Data Format**: A `.txt` file with monthly climate data. Columns represent months, and rows represent years.
 
 ## Files in This Repository
